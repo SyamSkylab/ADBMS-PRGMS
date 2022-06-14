@@ -1,0 +1,49 @@
+MariaDB [db1]> create table EMPlOYEE(emp_id int primary key,emp_name varchar(20),city varchar(10),salary int,Age int);
+Query OK, 0 rows affected (0.27 sec)
+
+MariaDB [db1]> insert into EMPlOYEE values(1,'Angelina','Chicago',200000,30),(2,'Robert','Austin',300000,26),(3,'Christian','Denver',100000,42),(4,'Kristen','Washington',500000,29),(5,'Russell','Los angels',200000,36),(6,'Marry','Canada',600000,48);
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+MariaDB [db1]> create table project(project_no int,emp_id int,department varchar(20));
+Query OK, 0 rows affected (0.56 sec)
+MariaDB [db1]> insert into project values(101,1,'Testing'),(102,2,'Development'),(103,3,'Designing'),(104,4,'Development');
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> select EMPlOYEE.emp_name,project.project_no from EMPlOYEE INNER JOIN project on EMPlOYEE.emp_id=project.emp_id;
++-----------+------------+
+| emp_name  | project_no |
++-----------+------------+
+| Angelina  |        101 |
+| Robert    |        102 |
+| Christian |        103 |
+| Kristen   |        104 |
++-----------+------------+
+4 rows in set (0.00 sec)
+
+MariaDB [db1]> select EMPlOYEE.emp_name,project.project_no from EMPlOYEE RIGHT JOIN project on EMPlOYEE.emp_id=project.emp_id;
++-----------+------------+
+| emp_name  | project_no |
++-----------+------------+
+| Angelina  |        101 |
+| Robert    |        102 |
+| Christian |        103 |
+| Kristen   |        104 |
++-----------+------------+
+4 rows in set (0.00 sec)
+
+MariaDB [db1]> select EMPlOYEE.emp_name,project.project_no from EMPlOYEE LEFT JOIN project on EMPlOYEE.emp_id=project.emp_id;
++-----------+------------+
+| emp_name  | project_no |
++-----------+------------+
+| Angelina  |        101 |
+| Robert    |        102 |
+| Christian |        103 |
+| Kristen   |        104 |
+| Russell   |       NULL |
+| Marry     |       NULL |
++-----------+------------+
+6 rows in set (0.00 sec)
+
+MariaDB [db1]> 
+

@@ -1,0 +1,186 @@
+student@student-OptiPlex-3050:~$ sudo mysq -u root -p;
+[sudo] password for student: 
+sudo: mysq: command not found
+student@student-OptiPlex-3050:~$ sudo mysq -u root -p;
+sudo: mysq: command not found
+student@student-OptiPlex-3050:~$ sudo mysql -u root -p;
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 34
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use db1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [db1]> create table author(author_id primary key int,name varchar(20),city varchar(20),country varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'primary key int,name varchar(20),city varchar(20),country varchar(20))' at line 1
+MariaDB [db1]> create table author(author_id int  primary key,name varchar(20),city varchar(20),country varchar(20));
+Query OK, 0 rows affected (0.26 sec)
+
+MariaDB [db1]> create table publisher(p_id primary key,name varchar(20),city varchar(20),country varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'primary key,name varchar(20),city varchar(20),country varchar(20))' at line 1
+MariaDB [db1]> create table publisher(p_id int  primary key,name varchar(20),city varchar(20),country varchar(20));
+Query OK, 0 rows affected (0.22 sec)
+
+MariaDB [db1]> create table category(c_id  int primary key,description varchar(30));
+Query OK, 0 rows affected (0.22 sec)
+
+MariaDB [db1]> create table Books(b_id int,title varchar(30),author_id int references author,p_id int references publisher,c_id int references category,year int,price int);
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [db1]> insert into author values(001,'sanoop','edappal','india'),(002,'sarang','canada','america'),(003,'akshy','aluva','brazil');
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> insert into publisher values(101,'DcBooks','Thrissur','india'),(102,'jhbooks','canada','america'),(103,'sunbooks','colombia','africa');
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> insert into category values(10,'fiction'),(11,'story'),(12,'novel');
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> insert into books values(210,'sunrises',001,102,11,2000,230),(220,'rose',002,102,10,2020,500),(230,'rainy days',003,103,12,2014,400);
+ERROR 1146 (42S02): Table 'db1.books' doesn't exist
+MariaDB [db1]> insert into Books values(210,'sunrises',001,102,11,2000,230),(220,'rose',002,102,10,2020,500),(230,'rainy days',003,103,12,2014,400);
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> upadet Books set title='benaras' where b_id=220;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'upadet Books set title='benaras' where b_id=220' at line 1
+MariaDB [db1]> update Books set title='benaras' where b_id=220;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> alter table Books modify b_id int primary key;
+Query OK, 3 rows affected (0.65 sec)               
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> desc books;
+ERROR 1146 (42S02): Table 'db1.books' doesn't exist
+MariaDB [db1]> desc Books;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| b_id      | int(11)     | NO   | PRI | NULL    |       |
+| title     | varchar(30) | YES  |     | NULL    |       |
+| author_id | int(11)     | YES  |     | NULL    |       |
+| p_id      | int(11)     | YES  |     | NULL    |       |
+| c_id      | int(11)     | YES  |     | NULL    |       |
+| year      | int(11)     | YES  |     | NULL    |       |
+| price     | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+MariaDB [db1]> 
+MariaDB [db1]> select * from Books;
++------+------------+-----------+------+------+------+-------+
+| b_id | title      | author_id | p_id | c_id | year | price |
++------+------------+-----------+------+------+------+-------+
+|  210 | sunrises   |         1 |  102 |   11 | 2000 |   230 |
+|  220 | benaras    |         2 |  102 |   10 | 2020 |   500 |
+|  230 | rainy days |         3 |  103 |   12 | 2014 |   400 |
++------+------------+-----------+------+------+------+-------+
+3 rows in set (0.00 sec)
+
+MariaDB [db1]> select b_id,title,price from Books;
++------+------------+-------+
+| b_id | title      | price |
++------+------------+-------+
+|  210 | sunrises   |   230 |
+|  220 | benaras    |   500 |
+|  230 | rainy days |   400 |
++------+------------+-------+
+3 rows in set (0.00 sec)
+
+MariaDB [db1]> update Books set price='700' where b_id=220;Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> select title from Books where price>500;
++---------+
+| title   |
++---------+
+| benaras |
++---------+
+1 row in set (0.00 sec)
+
+
+MariaDB [db1]> select title from Books left  join category on Books.c_id=category.c_id where category.description!='fiction';
++------------+
+| title      |
++------------+
+| sunrises   |
+| rainy days |
++------------+
+
+
+MariaDB [db1]> select title from Books where title like 'b%';
++---------+
+| title   |
++---------+
+| benaras |
++---------+
+1 row in set (0.00 sec)
+
+MariaDB [db1]> update table Books set year=1996 where b_id=210;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table Books set year=1996 where b_id=210' at line 1
+MariaDB [db1]> update Books set year=1996 where b_id=210;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> update Books set year=1997 where b_id=210;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> update Books set year=1996 where b_id=220;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> update Books set year=1998 where b_id=220;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> select title,author_id,p_id from Books where year in(1996,1997,1998);
++----------+-----------+------+
+| title    | author_id | p_id |
++----------+-----------+------+
+| sunrises |         1 |  102 |
+| benaras  |         2 |  102 |
++----------+-----------+------+
+2 rows in set (0.00 sec)
+
+MariaDB [db1]> update Books set year=1998 where b_id=230;Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> select title,author_id,p_id from Books where year in(1996,1997,1998);
++------------+-----------+------+
+| title      | author_id | p_id |
++------------+-----------+------+
+| sunrises   |         1 |  102 |
+| benaras    |         2 |  102 |
+| rainy days |         3 |  103 |
++------------+-----------+------+
+3 rows in set (0.00 sec)
+
+MariaDB [db1]> select * from Books where price range in(600,800);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'range in(600,800)' at line 1
+MariaDB [db1]> select * from Books where price between(600,800);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [db1]> select * from Books where price between 600 and 800;
++------+---------+-----------+------+------+------+-------+
+| b_id | title   | author_id | p_id | c_id | year | price |
++------+---------+-----------+------+------+------+-------+
+|  220 | benaras |         2 |  102 |   10 | 1998 |   700 |
++------+---------+-----------+------+------+------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [db1]> Ctrl-C -- exit!
+Aborted
+student@student-OptiPlex-3050:~$ 
+

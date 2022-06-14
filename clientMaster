@@ -1,0 +1,140 @@
+MariaDB [db3]> create table clientMaster(clientno varchar(20),name varchar(20),Address varchar(30),city varchar(20),pincode int,state varchar(20));
+Query OK, 0 rows affected (0.24 sec)
+
+MariaDB [db3]> insert into clientMaster values('c0100','syam','kodakkallingal','Edappal',679552,'kerala'),('c0200','ramu','karuvarakattil','thrissur',69780,'Tamilnadu'),('c0300','sarang','kulamkara','banglore',56678,'kannada'),('c0400','jancy','manayil','muvattupuzha',78995,'kerala'),('c0500','sarang','manayil','selam',68790,'Tamilnadu');
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [db3]> select * from clientMaster;
++----------+--------+----------------+--------------+---------+-----------+
+| clientno | name   | Address        | city         | pincode | state     |
++----------+--------+----------------+--------------+---------+-----------+
+| c0100    | syam   | kodakkallingal | Edappal      |  679552 | kerala    |
+| c0200    | ramu   | karuvarakattil | thrissur     |   69780 | Tamilnadu |
+| c0300    | sarang | kulamkara      | banglore     |   56678 | kannada   |
+| c0400    | jancy  | manayil        | muvattupuzha |   78995 | kerala    |
+| c0500    | sarang | manayil        | selam        |   68790 | Tamilnadu |
++----------+--------+----------------+--------------+---------+-----------+
+5 rows in set (0.00 sec)
+
+MariaDB [db3]> update clientMaster set name='jaya' where clientno='c0200';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db3]> select * from clientMaster;
++----------+--------+----------------+--------------+---------+-----------+
+| clientno | name   | Address        | city         | pincode | state     |
++----------+--------+----------------+--------------+---------+-----------+
+| c0100    | syam   | kodakkallingal | Edappal      |  679552 | kerala    |
+| c0200    | jaya   | karuvarakattil | thrissur     |   69780 | Tamilnadu |
+| c0300    | sarang | kulamkara      | banglore     |   56678 | kannada   |
+| c0400    | jancy  | manayil        | muvattupuzha |   78995 | kerala    |
+| c0500    | sarang | manayil        | selam        |   68790 | Tamilnadu |
++----------+--------+----------------+--------------+---------+-----------+
+5 rows in set (0.00 sec)
+
+MariaDB [db3]> select clientno,name from clientMaster;
++----------+--------+
+| clientno | name   |
++----------+--------+
+| c0100    | syam   |
+| c0200    | jaya   |
+| c0300    | sarang |
+| c0400    | jancy  |
+| c0500    | sarang |
++----------+--------+
+5 rows in set (0.01 sec)
+
+MariaDB [db3]> select distinct name from clientMaster;
++--------+
+| name   |
++--------+
+| syam   |
+| jaya   |
+| sarang |
+| jancy  |
++--------+
+4 rows in set (0.00 sec)
+
+MariaDB [db3]> select * from clientMaster order by name;
++----------+--------+----------------+--------------+---------+-----------+
+| clientno | name   | Address        | city         | pincode | state     |
++----------+--------+----------------+--------------+---------+-----------+
+| c0400    | jancy  | manayil        | muvattupuzha |   78995 | kerala    |
+| c0200    | jaya   | karuvarakattil | thrissur     |   69780 | Tamilnadu |
+| c0300    | sarang | kulamkara      | banglore     |   56678 | kannada   |
+| c0500    | sarang | manayil        | selam        |   68790 | Tamilnadu |
+| c0100    | syam   | kodakkallingal | Edappal      |  679552 | kerala    |
++----------+--------+----------------+--------------+---------+-----------+
+5 rows in set (0.00 sec)
+
+MariaDB [db3]> select * from clientMaster order by name desc;
++----------+--------+----------------+--------------+---------+-----------+--------------+-------+
+| clientno | name   | Address        | city         | pincode | state     | telephoneno  | faxno |
++----------+--------+----------------+--------------+---------+-----------+--------------+-------+
+| c0100    | syam   | kodakkallingal | Edappal      |  679552 | kerala    | 045534099863 | 3456  |
+| c0300    | sarang | kulamkara      | banglore     |   56678 | kannada   | 045534095443 | 9450  |
+| c0500    | sarang | manayil        | selam        |   68790 | Tamilnadu | 045534095211 | 9480  |
+| c0200    | jaya   | karuvarakattil | thrissur     |   69780 | Tamilnadu | 04553409900  | 9456  |
+| c0400    | jancy  | manayil        | muvattupuzha |   78995 | kerala    | 045534095344 | 9480  |
++----------+--------+----------------+--------------+---------+-----------+--------------+-------+
+5 rows in set (0.43 sec)
+
+
+
+MariaDB [db3]> select clientno,name from clientMaster where clientno='c0200';
++----------+------+
+| clientno | name |
++----------+------+
+| c0200    | jaya |
++----------+------+
+1 row in set (0.00 sec)
+
+MariaDB [db3]> Alter table clientMaster add telephoneno varchar(20);
+Query OK, 0 rows affected (0.35 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [db3]> Alter table clientMaster add faxno varchar(20);
+Query OK, 0 rows affected (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [db3]> update clientMaster set telephoneno='045534099863',faxno='3456' where clientno='c0100';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db3]> update clientMaster set telephoneno='04553409900',faxno='9456' where clientno='c0200';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db3]> update clientMaster set telephoneno='045534095443',faxno='9450' where clientno='c0300';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db3]> update clientMaster set telephoneno='045534095344',faxno='9480' where clientno='c0400';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db3]> update clientMaster set telephoneno='045534095211',faxno='9480' where clientno='c0500';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db3]> select * from clientMaster;
++----------+--------+----------------+--------------+---------+-----------+--------------+-------+
+| clientno | name   | Address        | city         | pincode | state     | telephoneno  | faxno |
++----------+--------+----------------+--------------+---------+-----------+--------------+-------+
+| c0100    | syam   | kodakkallingal | Edappal      |  679552 | kerala    | 045534099863 | 3456  |
+| c0200    | jaya   | karuvarakattil | thrissur     |   69780 | Tamilnadu | 04553409900  | 9456  |
+| c0300    | sarang | kulamkara      | banglore     |   56678 | kannada   | 045534095443 | 9450  |
+| c0400    | jancy  | manayil        | muvattupuzha |   78995 | kerala    | 045534095344 | 9480  |
+| c0500    | sarang | manayil        | selam        |   68790 | Tamilnadu | 045534095211 | 9480  |
++----------+--------+----------------+--------------+---------+-----------+--------------+-------+
+5 rows in set (0.00 sec)
+
+MariaDB [db3]> Alter table clientMaster modify column(faxno varchar(30));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(faxno varchar(30))' at line 1
+MariaDB [db3]> Alter table clientMaster modify column faxno varchar(30);
+Query OK, 5 rows affected (0.65 sec)               
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [db3]> 
+

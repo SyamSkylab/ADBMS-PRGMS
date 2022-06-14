@@ -1,0 +1,89 @@
+MariaDB [db3]> create table Employee(Empno int,Empname varchar(20),designation varchar(20),salary int,DOB date,deptno int);
+Query OK, 0 rows affected (0.22 sec)
+
+MariaDB [db3]> insert into Employee values(1,'sarang','developer',50000,'2000-05-05',2),(2,'Reshma','HR',60000,'1996-05-23',4),(3,'Akshy','Financialmanager',80000,'1997-02-04',6),(4,'Arjun','Tester',45000,'1999-03-04',5),(5,'Jabir','Designer',5000,'1993-10-3',2),(6,'Vaishak','Manager',70000,'1880-05-05',2);
+Query OK, 6 rows affected (0.11 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [db3]> select * from Employee;
++-------+---------+------------------+--------+------------+--------+
+| Empno | Empname | designation      | salary | DOB        | deptno |
++-------+---------+------------------+--------+------------+--------+
+|     1 | sarang  | developer        |  50000 | 2000-05-05 |      2 |
+|     2 | Reshma  | HR               |  60000 | 1996-05-23 |      4 |
+|     3 | Akshy   | Financialmanager |  80000 | 1997-02-04 |      6 |
+|     4 | Arjun   | Tester           |  45000 | 1999-03-04 |      5 |
+|     5 | Jabir   | Designer         |   5000 | 1993-10-03 |      2 |
+|     6 | Vaishak | Manager          |  70000 | 1880-05-05 |      2 |
++-------+---------+------------------+--------+------------+--------+
+6 rows in set (0.00 sec)
+
+MariaDB [db3]> select * from Employee where salary>10000;
++-------+---------+------------------+--------+------------+--------+
+| Empno | Empname | designation      | salary | DOB        | deptno |
++-------+---------+------------------+--------+------------+--------+
+|     1 | sarang  | developer        |  50000 | 2000-05-05 |      2 |
+|     2 | Reshma  | HR               |  60000 | 1996-05-23 |      4 |
+|     3 | Akshy   | Financialmanager |  80000 | 1997-02-04 |      6 |
+|     4 | Arjun   | Tester           |  45000 | 1999-03-04 |      5 |
+|     6 | Vaishak | Manager          |  70000 | 1880-05-05 |      2 |
++-------+---------+------------------+--------+------------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [db3]> delete from Employee where deptno='6';
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db3]> select * from Employee;
++-------+---------+-------------+--------+------------+--------+
+| Empno | Empname | designation | salary | DOB        | deptno |
++-------+---------+-------------+--------+------------+--------+
+|     1 | sarang  | developer   |  50000 | 2000-05-05 |      2 |
+|     2 | Reshma  | HR          |  60000 | 1996-05-23 |      4 |
+|     4 | Arjun   | Tester      |  45000 | 1999-03-04 |      5 |
+|     5 | Jabir   | Designer    |   5000 | 1993-10-03 |      2 |
+|     6 | Vaishak | Manager     |  70000 | 1880-05-05 |      2 |
++-------+---------+-------------+--------+------------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [db3]> update Employee set salary=salary+5000 where designation='Manager';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db3]> select * from Employee;
++-------+---------+-------------+--------+------------+--------+
+| Empno | Empname | designation | salary | DOB        | deptno |
++-------+---------+-------------+--------+------------+--------+
+|     1 | sarang  | developer   |  50000 | 2000-05-05 |      2 |
+|     2 | Reshma  | HR          |  60000 | 1996-05-23 |      4 |
+|     4 | Arjun   | Tester      |  45000 | 1999-03-04 |      5 |
+|     5 | Jabir   | Designer    |   5000 | 1993-10-03 |      2 |
+|     6 | Vaishak | Manager     |  75000 | 1880-05-05 |      2 |
++-------+---------+-------------+--------+------------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [db3]> select Empname  from Employee order by Empname;
++---------+
+| Empname |
++---------+
+| Arjun   |
+| Jabir   |
+| Reshma  |
+| sarang  |
+| Vaishak |
++---------+
+5 rows in set (0.00 sec)
+
+MariaDB [db3]> select * from Employee order by Empname;
++-------+---------+-------------+--------+------------+--------+
+| Empno | Empname | designation | salary | DOB        | deptno |
++-------+---------+-------------+--------+------------+--------+
+|     4 | Arjun   | Tester      |  45000 | 1999-03-04 |      5 |
+|     5 | Jabir   | Designer    |   5000 | 1993-10-03 |      2 |
+|     2 | Reshma  | HR          |  60000 | 1996-05-23 |      4 |
+|     1 | sarang  | developer   |  50000 | 2000-05-05 |      2 |
+|     6 | Vaishak | Manager     |  75000 | 1880-05-05 |      2 |
++-------+---------+-------------+--------+------------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [db3]> 
+

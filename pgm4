@@ -1,0 +1,255 @@
+student@student-OptiPlex-3050:~$ sudo mysql root -p
+[sudo] password for student: 
+Enter password: 
+ERROR 1049 (42000): Unknown database 'root'
+student@student-OptiPlex-3050:~$ sudo mysql root -p
+Enter password: 
+ERROR 1049 (42000): Unknown database 'root'
+student@student-OptiPlex-3050:~$ sudo mysql -u root -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 34
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create datbase company;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'datbase company' at line 1
+MariaDB [(none)]> create database company;
+ERROR 1007 (HY000): Can't create database 'company'; database exists
+MariaDB [(none)]> create database db5;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> create table  jobs(jobid int primary key,job_title varchar(10),min_salary in,max_salary int(20));
+ERROR 1046 (3D000): No database selected
+MariaDB [(none)]> use db5;
+Database changed
+MariaDB [db5]> create table  jobs(jobid int primary key,job_title varchar(10),min_salary in,max_salary int(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'in,max_salary int(20))' at line 1
+MariaDB [db5]> create table  jobs(jobid int primary key,job_title varchar(10),min_salary int,max_salary int(20));
+Query OK, 0 rows affected (0.24 sec)
+
+MariaDB [db5]> insert into jobs values(1,'manager',5000,10000),(2,'Cashier',15000,25000),(3,'assistant manager',2500,40000),(4,'product owner',50000,60000),(5,'scrum master',70000,90000);
+Query OK, 5 rows affected, 3 warnings (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 3
+
+MariaDB [db5]> create table departments(dept_id int primary key,department_name varchar(50));
+Query OK, 0 rows affected (0.20 sec)
+
+MariaDB [db5]> insert into departmnet value(1,'technical'),(2,'leadership'),(3,'project head'),(4,'client');
+ERROR 1146 (42S02): Table 'db5.departmnet' doesn't exist
+MariaDB [db5]> insert into department value(1,'technical'),(2,'leadership'),(3,'project head'),(4,'client');
+ERROR 1146 (42S02): Table 'db5.department' doesn't exist
+MariaDB [db5]> insert into departments value(1,'technical'),(2,'leadership'),(3,'project head'),(4,'client');
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [db5]> create table employee(emp_id primary key,first_name varchar(10),email varchar(10),phone_number long,hire _date,jobid int references jobs,salary int,dept_id int references departments);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'primary key,first_name varchar(10),email varchar(10),phone_number long,hire _dat' at line 1
+MariaDB [db5]> create table employee(emp_id primary key,first_name varchar(10),email varchar(10),phone_number long,hire _date date,jobid int references jobs,salary int,dept_id int references departments);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'primary key,first_name varchar(10),email varchar(10),phone_number long,hire _dat' at line 1
+MariaDB [db5]> create table employee(emp_id int primary key,first_name varchar(10),email varchar(10),phone_number long,hire _date date,jobid int references jobs,salary int,dept_id int references departments);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '_date date,jobid int references jobs,salary int,dept_id int references departmen' at line 1
+MariaDB [db5]> create table employee(emp_id int primary key,first_name varchar(10),email varchar(10),phone_number long,hiredate date,jobid int references jobs,salary int,dept_id int references departments);
+Query OK, 0 rows affected (0.20 sec)
+
+MariaDB [db5]> insert into employees value(
+    -> );
+ERROR 1146 (42S02): Table 'db5.employees' doesn't exist
+MariaDB [db5]> insert into employees values(10,'arun','arun.com',4567899,'2022-01-10',1,8000,1,1),(102,'Arushi','
+    '> ;
+    '> );
+    '> ');
+ERROR 1146 (42S02): Table 'db5.employees' doesn't exist
+MariaDB [db5]> drop table employees;
+ERROR 1051 (42S02): Unknown table 'db5.employees'
+MariaDB [db5]> drop table employee;
+Query OK, 0 rows affected (0.10 sec)
+
+MariaDB [db5]> create table employee(emp_id int primary key,first_name varchar(10),last_name varchar(10),email varchar(10),phone_number long,hiredate date,jobid int references jobs,salary int,dept_id int references departments);
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [db5]> insert into employees values(10,'arun','Takur','arun.com',4567899,'2022-01-10',1,8000,1,1),(102,'Arushi','mahal','arushi23@gmail.com',755006799,'2011-12-03',4,55000,1,2),(104,'manu','rajan','manraju@gmail.com',145257643,'2000-05-10',1,30000,3,1),(105,'Nikhil','prema','nikhil@gmail.com',45247385,'2003-05-10',5,90000,4,4);
+ERROR 1146 (42S02): Table 'db5.employees' doesn't exist
+MariaDB [db5]> insert into employee  values(10,'arun','Takur','arun.com',4567899,'2022-01-10',1,8000,1,1),(102,'Arushi','mahal','arushi23@gmail.com',755006799,'2011-12-03',4,55000,1,2),(104,'manu','rajan','manraju@gmail.com',145257643,'2000-05-10',1,30000,3,1),(105,'Nikhil','prema','nikhil@gmail.com',45247385,'2003-05-10',5,90000,4,4);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [db5]> insert into employee  values(10,'arun','Takur','arun.com',4567899,'2022-01-10',1,8000,1,1),(102,'Arushi','mahal','arushi23@gmail.com',755006799,'2011-12-03',4,55000,1,2),(104,'manu','rajan','manraju@gmail.com',145257643,'2000-05-10',1,30000,3,1),(105,'Nikhil','prema','nikhil@gmail.com',45247385,'2003-05-10',5,90000,4,4),(105,'rose','jancy','ros45@gmail.com',3456785896,'2000-09-12',3,90000,4,3);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [db5]> insert into employee  values(10,'arun','Takur','arun.com',4567899,'2022-01-10',1,8000,1,1),(102,'Arushi','mahal','arushi23@gmail.com',755006799,'2011-12-03',4,55000,1,2),(104,'manu','rajan','manraju@gmail.com',145257643,'2000-05-10',1,30000,3,1),(105,'Nikhil','prema','nikhil@gmail.com',45247385,'2003-05-10',5,90000,4,4),(105,'rose','jancy','ros45@gmail.com',3456785896,'2000-09-12',3,90000,4,3);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [db5]> drop table employee;
+Query OK, 0 rows affected (0.10 sec)
+
+MariaDB [db5]> create table employee(emp_id int primary key,first_name varchar(10),last_name varchar(10),email varchar(10),phone_number long,hiredate date,jobid int references jobs,salary int,manager_id int,dept_id int references departments);
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [db5]> insert into employee  values(10,'arun','Takur','arun.com',4567899,'2022-01-10',1,8000,1,1),(102,'Arushi','mahal','arushi23@gmail.com',755006799,'2011-12-03',4,55000,1,2),(104,'manu','rajan','manraju@gmail.com',145257643,'2000-05-10',1,30000,3,1),(105,'Nikhil','prema','nikhil@gmail.com',45247385,'2003-05-10',5,90000,4,4),(105,'rose','jancy','ros45@gmail.com',3456785896,'2000-09-12',3,90000,4,3);
+ERROR 1062 (23000): Duplicate entry '105' for key 'PRIMARY'
+MariaDB [db5]> insert into employee  values(10,'arun','Takur','arun.com',4567899,'2022-01-10',1,8000,1,1),(102,'Arushi','mahal','arushi23@gmail.com',755006799,'2011-12-03',4,55000,1,2),(103,'manu','rajan','manraju@gmail.com',145257643,'2000-05-10',1,30000,3,1),(104,'Nikhil','prema','nikhil@gmail.com',45247385,'2003-05-10',5,90000,4,4),(105,'rose','jancy','ros45@gmail.com',3456785896,'2000-09-12',3,90000,4,3);
+Query OK, 5 rows affected, 4 warnings (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 4
+
+MariaDB [db5]> select * from employee left join on jobs.jobid=employee.jobid left join Dept on Dept.documnet_id=employees.dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on jobs.jobid=employee.jobid left join Dept on Dept.documnet_id=employees.dept_i' at line 1
+MariaDB [db5]> select * from employee left join on jobs.jobid=employee.job_id left join Dept on Dept.documnet_id=employees.dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on jobs.jobid=employee.job_id left join Dept on Dept.documnet_id=employees.dept_' at line 1
+MariaDB [db5]> Query OK, 0 rows affected (0.10 sec)
+    -> 
+    -> Query OK, 0 rows affected (0.10 sec)
+    -> 
+    -> Query OK, 0 rows affected (0.10 sec)
+    -> 
+    -> Query OK, 0 rows affected (0.10 sec)
+    -> 
+    -> Query OK, 0 rows affected (0.10 sec)
+    -> 
+    -> Query OK, 0 rows affected (0.10 sec)
+    -> 
+    -> insert into employees values(10,'arun','arun.com',4567899,'2022-01-10',1,8000,1,1),(102,'Arushi',';
+    '> 
+Display all 748 possibilities? (y or n)Ctrl-C -- exit!
+Aborted
+student@student-OptiPlex-3050:~$ ^C
+student@student-OptiPlex-3050:~$ sudo mysql -u root -p;
+[sudo] password for student: 
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 36
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use db5;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [db5]> select * from employee left join on jobs.jobid=employee.job_id left join Dept on Dept.dept_id=employee.dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on jobs.jobid=employee.job_id left join Dept on Dept.dept_id=employee.dept_id' at line 1
+MariaDB [db5]> select * from employee left join on jobs.job_id=employee.job_id left join Dept on Dept.dept_id=employee.dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on jobs.job_id=employee.job_id left join Dept on Dept.dept_id=employee.dept_id' at line 1
+MariaDB [db5]> select * from employee left join on jobs.job_id=employee.job_id left join Dept on Dept.dept_id=employee.dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on jobs.job_id=employee.job_id left join Dept on Dept.dept_id=employee.dept_id' at line 1
+MariaDB [db5]> select * from employee;
++--------+------------+-----------+------------+--------------+------------+-------+--------+------------+---------+
+| emp_id | first_name | last_name | email      | phone_number | hiredate   | jobid | salary | manager_id | dept_id |
++--------+------------+-----------+------------+--------------+------------+-------+--------+------------+---------+
+|     10 | arun       | Takur     | arun.com   | 4567899      | 2022-01-10 |     1 |   8000 |          1 |       1 |
+|    102 | Arushi     | mahal     | arushi23@g | 755006799    | 2011-12-03 |     4 |  55000 |          1 |       2 |
+|    103 | manu       | rajan     | manraju@gm | 145257643    | 2000-05-10 |     1 |  30000 |          3 |       1 |
+|    104 | Nikhil     | prema     | nikhil@gma | 45247385     | 2003-05-10 |     5 |  90000 |          4 |       4 |
+|    105 | rose       | jancy     | ros45@gmai | 3456785896   | 2000-09-12 |     3 |  90000 |          4 |       3 |
++--------+------------+-----------+------------+--------------+------------+-------+--------+------------+---------+
+5 rows in set (0.01 sec)
+
+MariaDB [db5]> select * from employee left join on jobs.jobid=employee.jobid left join Dept on Dept.dept_id=employee.dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on jobs.jobid=employee.jobid left join Dept on Dept.dept_id=employee.dept_id' at line 1
+MariaDB [db5]> select * from department;
+ERROR 1146 (42S02): Table 'db5.department' doesn't exist
+MariaDB [db5]> select * from departments;
++---------+-----------------+
+| dept_id | department_name |
++---------+-----------------+
+|       1 | technical       |
+|       2 | leadership      |
+|       3 | project head    |
+|       4 | client          |
++---------+-----------------+
+4 rows in set (0.00 sec)
+
+MariaDB [db5]> Alter table department rename to Dept;
+ERROR 1146 (42S02): Table 'db5.department' doesn't exist
+MariaDB [db5]> Alter table departments rename to Dept;
+Query OK, 0 rows affected (0.10 sec)
+
+MariaDB [db5]> select * from employee left join on jobs.jobid=employee.jobid left join Dept on Dept.dept_id=employee.dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on jobs.jobid=employee.jobid left join Dept on Dept.dept_id=employee.dept_id' at line 1
+MariaDB [db5]> select * from employee left join on jobs.jobid=employee.jobid left join Dept on Dept.dept_id=employee.dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'on jobs.jobid=employee.jobid left join Dept on Dept.dept_id=employee.dept_id' at line 1
+MariaDB [db5]> select * from jobs;
++-------+------------+------------+------------+
+| jobid | job_title  | min_salary | max_salary |
++-------+------------+------------+------------+
+|     1 | manager    |       5000 |      10000 |
+|     2 | Cashier    |      15000 |      25000 |
+|     3 | assistant  |       2500 |      40000 |
+|     4 | product ow |      50000 |      60000 |
+|     5 | scrum mast |      70000 |      90000 |
++-------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [db5]> select * from employee left join jobs on jobs.jobid=employee.jobid left join Dept on Dept.dept_id=employee.dept_id;
++--------+------------+-----------+------------+--------------+------------+-------+--------+------------+---------+-------+------------+------------+------------+---------+-----------------+
+| emp_id | first_name | last_name | email      | phone_number | hiredate   | jobid | salary | manager_id | dept_id | jobid | job_title  | min_salary | max_salary | dept_id | department_name |
++--------+------------+-----------+------------+--------------+------------+-------+--------+------------+---------+-------+------------+------------+------------+---------+-----------------+
+|     10 | arun       | Takur     | arun.com   | 4567899      | 2022-01-10 |     1 |   8000 |          1 |       1 |     1 | manager    |       5000 |      10000 |       1 | technical       |
+|    102 | Arushi     | mahal     | arushi23@g | 755006799    | 2011-12-03 |     4 |  55000 |          1 |       2 |     4 | product ow |      50000 |      60000 |       2 | leadership      |
+|    103 | manu       | rajan     | manraju@gm | 145257643    | 2000-05-10 |     1 |  30000 |          3 |       1 |     1 | manager    |       5000 |      10000 |       1 | technical       |
+|    104 | Nikhil     | prema     | nikhil@gma | 45247385     | 2003-05-10 |     5 |  90000 |          4 |       4 |     5 | scrum mast |      70000 |      90000 |       4 | client          |
+|    105 | rose       | jancy     | ros45@gmai | 3456785896   | 2000-09-12 |     3 |  90000 |          4 |       3 |     3 | assistant  |       2500 |      40000 |       3 | project head    |
++--------+------------+-----------+------------+--------------+------------+-------+--------+------------+---------+-------+------------+------------+------------+---------+-----------------+
+5 rows in set (0.01 sec)
+
+MariaDB [db5]> select * employee where salary>30000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'employee where salary>30000' at line 1
+MariaDB [db5]> select * from  employee where salary>30000;
++--------+------------+-----------+------------+--------------+------------+-------+--------+------------+---------+
+| emp_id | first_name | last_name | email      | phone_number | hiredate   | jobid | salary | manager_id | dept_id |
++--------+------------+-----------+------------+--------------+------------+-------+--------+------------+---------+
+|    102 | Arushi     | mahal     | arushi23@g | 755006799    | 2011-12-03 |     4 |  55000 |          1 |       2 |
+|    104 | Nikhil     | prema     | nikhil@gma | 45247385     | 2003-05-10 |     5 |  90000 |          4 |       4 |
+|    105 | rose       | jancy     | ros45@gmai | 3456785896   | 2000-09-12 |     3 |  90000 |          4 |       3 |
++--------+------------+-----------+------------+--------------+------------+-------+--------+------------+---------+
+3 rows in set (0.00 sec)
+
+MariaDB [db5]> alter table employees modify salary email int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'email int' at line 1
+MariaDB [db5]> alter table employees modify salary small int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'small int' at line 1
+MariaDB [db5]> alter table employees modify salary smallint;
+ERROR 1146 (42S02): Table 'db5.employees' doesn't exist
+MariaDB [db5]> alter table employee  modify salary smallint;
+Query OK, 5 rows affected, 3 warnings (0.78 sec)   
+Records: 5  Duplicates: 0  Warnings: 3
+
+MariaDB [db5]> alter table employee  add commision int;
+Query OK, 0 rows affected (0.32 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [db5]> update employee set commision=1500 where emp_id=10;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db5]> update employee set commision=2000 where emp_id=102;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db5]> update employee set commision=2300 where emp_id=103;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db5]> update employee set commision=1000 where emp_id=104;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db5]> update employee set commision=1900 where emp_id=105;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db5]> alter table employee drop hire_date;
+ERROR 1091 (42000): Can't DROP 'hire_date'; check that column/key exists
+MariaDB [db5]> alter table employee drop hiredate;
+Query OK, 0 rows affected (0.35 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [db5]> delete from employee where employee_id=104;
+ERROR 1054 (42S22): Unknown column 'employee_id' in 'where clause'
+MariaDB [db5]> delete from employee where emp_id=104;
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db5]> 
+

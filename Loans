@@ -17,14 +17,6 @@ Database changed
 
 MariaDB [db1]> create table Loans(AccN int primary key,Cust_Name varchar(20),Loan_Amount int,Instalments int,Int_Rate int,Start_Date date,Interest int);
 Query OK, 0 rows affected (0.35 sec)
-
-MariaDB [db1]> insert into Loans values(1,'R.K.Gupta',300000,36,12.00,'19-07-2009',1200),(2,'S.P.Sharma',500000,48,10.00,'22-03-2008',1800),(3,'K.P.Jain',300000,36,NULL,'08-03-2007',1600),(4,M.P.Yadav',800000,60,10.00,'06-12-2008',2250),(5,S.P Sinha,200000,36,12.50,'03-01-2010',4500,(6,'P.Sharma',700000,60,12.50,05-06-2008,3500),(7,'K.S.Dhail',500000,48,NULL,'05-03-2008',3800);
-    '> '>;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '',800000,60,10.00,'06-12-2008',2250),(5,S.P Sinha,200000,36,12.50,'03-01-2010',4' at line 1
-MariaDB [db1]> insert into Loans values(1,'R.K.Gupta',300000,36,12.00,'19-07-2009',1200),(2,'S.P.Sharma',500000,48,10.00,'22-03-2008',1800),(3,'K.P.Jain',300000,36,NULL,'08-03-2007',1600),(4,'M.P.Yadav',800000,60,10.00,'06-12-2008',2250),(5,S.P Sinha,200000,36,12.50,'03-01-2010',4500,(6,'P.Sharma',700000,60,12.50,05-06-2008,3500),(7,'K.S.Dhail',500000,48,NULL,'05-03-2008',3800);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'Sinha,200000,36,12.50,'03-01-2010',4500,(6,'P.Sharma',700000,60,12.50,05-06-2008' at line 1
-MariaDB [db1]> insert into Loans values(1,'R.K.Gupta',300000,36,12.00,'19-07-2009',1200),(2,'S.P.Sharma',500000,48,10.00,'22-03-2008',1800),(3,'K.P.Jain',300000,36,NULL,'08-03-2007',1600),(4,'M.P.Yadav',800000,60,10.00,'06-12-2008',2250),(5,'S.P Sinha',200000,36,12.50,'03-01-2010',4500,(6,'P.Sharma',700000,60,12.50,05-06-2008,3500),(7,'K.S.Dhail',500000,48,NULL,'05-03-2008',3800);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
 MariaDB [db1]> insert into Loans values(1,'R.K.Gupta',300000,36,12.00,'19-07-2009',1200),(2,'S.P.Sharma',500000,48,10.00,'22-03-2008',1800),(3,'K.P.Jain',300000,36,NULL,'08-03-2007',1600),(4,'M.P.Yadav',800000,60,10.00,'06-12-2008',2250),(5,'S.P Sinha',200000,36,12.50,'03-01-2010',4500),(6,'P.Sharma',700000,60,12.50,05-06-2008,3500),(7,'K.S.Dhail',500000,48,NULL,'05-03-2008',3800);
 Query OK, 7 rows affected, 7 warnings (0.04 sec)
 Records: 7  Duplicates: 0  Warnings: 7
@@ -448,8 +440,6 @@ MariaDB [db1]> select Max(Interest) from Loans;
 +---------------+
 1 row in set (0.00 sec)
 
-MariaDB [db1]> select count(name) from Loans where name like '%sharma';
-ERROR 1054 (42S22): Unknown column 'name' in 'field list'
 MariaDB [db1]> select count(Cust_name) from Loans where Cust_name like '%sharma';
 +------------------+
 | count(Cust_name) |
@@ -478,9 +468,7 @@ MariaDB [db1]> select * from Loans Group by Interest;
 |    6 | P.Sharma   |      700000 |          60 |       14 | 2008-06-05 |   490000 | NULL     |
 +------+------------+-------------+-------------+----------+------------+----------+----------+
 6 rows in set (0.00 sec)
-
-MariaDB [db1]> select count(ACCN) from Loans Group By Interest where instalments>5;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where instalments>5' at line 1
+1
 MariaDB [db1]> select count(ACCN) from Loans where instalments>5 Group By Interest;
 +-------------+
 | count(ACCN) |

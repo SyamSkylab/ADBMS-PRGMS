@@ -18,13 +18,11 @@ Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
 Database changed
-MariaDB [db1]> create table author(author_id primary key int,name varchar(20),city varchar(20),country varchar(20));
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'primary key int,name varchar(20),city varchar(20),country varchar(20))' at line 1
+
 MariaDB [db1]> create table author(author_id int  primary key,name varchar(20),city varchar(20),country varchar(20));
 Query OK, 0 rows affected (0.26 sec)
 
-MariaDB [db1]> create table publisher(p_id primary key,name varchar(20),city varchar(20),country varchar(20));
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'primary key,name varchar(20),city varchar(20),country varchar(20))' at line 1
+
 MariaDB [db1]> create table publisher(p_id int  primary key,name varchar(20),city varchar(20),country varchar(20));
 Query OK, 0 rows affected (0.22 sec)
 
@@ -46,14 +44,11 @@ MariaDB [db1]> insert into category values(10,'fiction'),(11,'story'),(12,'novel
 Query OK, 3 rows affected (0.04 sec)
 Records: 3  Duplicates: 0  Warnings: 0
 
-MariaDB [db1]> insert into books values(210,'sunrises',001,102,11,2000,230),(220,'rose',002,102,10,2020,500),(230,'rainy days',003,103,12,2014,400);
-ERROR 1146 (42S02): Table 'db1.books' doesn't exist
+
 MariaDB [db1]> insert into Books values(210,'sunrises',001,102,11,2000,230),(220,'rose',002,102,10,2020,500),(230,'rainy days',003,103,12,2014,400);
 Query OK, 3 rows affected (0.04 sec)
 Records: 3  Duplicates: 0  Warnings: 0
 
-MariaDB [db1]> upadet Books set title='benaras' where b_id=220;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'upadet Books set title='benaras' where b_id=220' at line 1
 MariaDB [db1]> update Books set title='benaras' where b_id=220;
 Query OK, 1 row affected (0.05 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
@@ -62,8 +57,6 @@ MariaDB [db1]> alter table Books modify b_id int primary key;
 Query OK, 3 rows affected (0.65 sec)               
 Records: 3  Duplicates: 0  Warnings: 0
 
-MariaDB [db1]> desc books;
-ERROR 1146 (42S02): Table 'db1.books' doesn't exist
 MariaDB [db1]> desc Books;
 +-----------+-------------+------+-----+---------+-------+
 | Field     | Type        | Null | Key | Default | Extra |
@@ -128,8 +121,7 @@ MariaDB [db1]> select title from Books where title like 'b%';
 +---------+
 1 row in set (0.00 sec)
 
-MariaDB [db1]> update table Books set year=1996 where b_id=210;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table Books set year=1996 where b_id=210' at line 1
+
 MariaDB [db1]> update Books set year=1996 where b_id=210;
 Query OK, 1 row affected (0.04 sec)
 Rows matched: 1  Changed: 1  Warnings: 0

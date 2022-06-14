@@ -38,33 +38,12 @@ Records: 5  Duplicates: 0  Warnings: 3
 MariaDB [db5]> create table departments(dept_id int primary key,department_name varchar(50));
 Query OK, 0 rows affected (0.20 sec)
 
-MariaDB [db5]> insert into departmnet value(1,'technical'),(2,'leadership'),(3,'project head'),(4,'client');
-ERROR 1146 (42S02): Table 'db5.departmnet' doesn't exist
-MariaDB [db5]> insert into department value(1,'technical'),(2,'leadership'),(3,'project head'),(4,'client');
-ERROR 1146 (42S02): Table 'db5.department' doesn't exist
 MariaDB [db5]> insert into departments value(1,'technical'),(2,'leadership'),(3,'project head'),(4,'client');
 Query OK, 4 rows affected (0.03 sec)
 Records: 4  Duplicates: 0  Warnings: 0
-
-MariaDB [db5]> create table employee(emp_id primary key,first_name varchar(10),email varchar(10),phone_number long,hire _date,jobid int references jobs,salary int,dept_id int references departments);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'primary key,first_name varchar(10),email varchar(10),phone_number long,hire _dat' at line 1
-MariaDB [db5]> create table employee(emp_id primary key,first_name varchar(10),email varchar(10),phone_number long,hire _date date,jobid int references jobs,salary int,dept_id int references departments);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'primary key,first_name varchar(10),email varchar(10),phone_number long,hire _dat' at line 1
-MariaDB [db5]> create table employee(emp_id int primary key,first_name varchar(10),email varchar(10),phone_number long,hire _date date,jobid int references jobs,salary int,dept_id int references departments);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '_date date,jobid int references jobs,salary int,dept_id int references departmen' at line 1
-MariaDB [db5]> create table employee(emp_id int primary key,first_name varchar(10),email varchar(10),phone_number long,hiredate date,jobid int references jobs,salary int,dept_id int references departments);
+l varchar(10),phone_number long,hiredate date,jobid int references jobs,salary int,dept_id int references departments);
 Query OK, 0 rows affected (0.20 sec)
 
-MariaDB [db5]> insert into employees value(
-    -> );
-ERROR 1146 (42S02): Table 'db5.employees' doesn't exist
-MariaDB [db5]> insert into employees values(10,'arun','arun.com',4567899,'2022-01-10',1,8000,1,1),(102,'Arushi','
-    '> ;
-    '> );
-    '> ');
-ERROR 1146 (42S02): Table 'db5.employees' doesn't exist
-MariaDB [db5]> drop table employees;
-ERROR 1051 (42S02): Unknown table 'db5.employees'
 MariaDB [db5]> drop table employee;
 Query OK, 0 rows affected (0.10 sec)
 
@@ -246,10 +225,7 @@ MariaDB [db5]> alter table employee drop hiredate;
 Query OK, 0 rows affected (0.35 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
-MariaDB [db5]> delete from employee where employee_id=104;
-ERROR 1054 (42S22): Unknown column 'employee_id' in 'where clause'
-MariaDB [db5]> delete from employee where emp_id=104;
-Query OK, 1 row affected (0.03 sec)
+
 
 MariaDB [db5]> 
 
